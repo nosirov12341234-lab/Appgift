@@ -1,0 +1,6 @@
+aiogram==3.7.0
+python-dotenv
+aiohttp
+flask
+requests
+fragment-api-py

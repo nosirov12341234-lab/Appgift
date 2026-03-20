@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>U-Gift Market</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --s1: #111118;
+  --s2: #18181f;
+  --s3: #22222c;
+  --s4: #2a2a36;
+  --gold: #f5c842;
+  --gold2: #e6a800;
+  --gold3: rgba(245,200,66,0.12);
+  --purple: #7c5cfc;
+  --purple2: rgba(124,92,252,0.12);
+  --green: #22c55e;
+  --red: #ef4444;
+  --tx: #f0f0f8;
+  --tx2: #8888aa;
+  --tx3: #44445a;
+  --r: 18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;padding-bottom:72px;
+}
+
+/* SPLASH */
+.splash{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  transition:opacity .5s ease,visibility .5s ease;
+}
+.splash.hide{opacity:0;visibility:hidden}
+.sp-logo{
+  width:90px;height:90px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;
+  box-shadow:0 16px 48px rgba(245,200,66,.45);
+  animation:logoPop .6s cubic-bezier(.34,1.56,.64,1) .1s both;
+}
+@keyframes logoPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.sp-name{
+  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;
+  animation:fadeUp .4s ease .4s both;
+}
+.sp-name span{color:var(--gold)}
+.sp-sub{font-size:13px;color:var(--tx2);animation:fadeUp .4s ease .55s both}
+.sp-bar{
+  width:120px;height:3px;background:var(--s3);border-radius:2px;overflow:hidden;
+  animation:fadeUp .4s ease .7s both;
+}
+.sp-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));
+  border-radius:2px;width:0;animation:barFill 1.5s ease .9s forwards;
+}
+@keyframes barFill{to{width:100%}}
+
+/* HEADER */
+.hdr{
+  padding:14px 16px 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hdr-brand{display:flex;align-items:center;gap:9px}
+.hdr-logo{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.hdr-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.hdr-name span{color:var(--gold)}
+.hdr-bal{
+  display:flex;align-items:center;gap:5px;
+  background:var(--s2);border:1px solid var(--s3);
+  border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;cursor:pointer;
+}
+
+/* GREET */
+.greet{padding:16px 16px 0}
+.greet-hi{font-size:12px;color:var(--tx2);margin-bottom:1px}
+.greet-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+
+/* SERVICES */
+.sect{padding:16px 16px 0}
+.sect-lbl{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:11px}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.svc-card{
+  background:var(--s1);border:1px solid var(--s3);
+  border-radius:var(--r);padding:18px 14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+}
+.svc-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.02));pointer-events:none}
+.svc-card:active{transform:scale(.97)}
+.svc-card.stars{border-color:rgba(245,200,66,.2);background:linear-gradient(145deg,#13120a,#111118)}
+.svc-card.prem{border-color:rgba(124,92,252,.2);background:linear-gradient(145deg,#0f0e18,#111118)}
+.svc-ic{font-size:32px;margin-bottom:9px;display:block}
+.svc-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px}
+.svc-sub{font-size:11px;color:var(--tx2)}
+.svc-badge{
+  position:absolute;top:9px;right:9px;
+  font-size:9px;font-weight:800;padding:2px 6px;border-radius:20px;text-transform:uppercase;
+}
+.svc-badge.gold{background:var(--gold);color:#000}
+.svc-badge.purple{background:var(--purple);color:#fff}
+
+/* REF CARD */
+.ref-banner{
+  margin:12px 16px 0;
+  background:linear-gradient(135deg,#1a1535,#111118);
+  border:1px solid rgba(124,92,252,.2);
+  border-radius:var(--r);padding:14px;
+  display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;
+}
+.ref-banner:active{transform:scale(.98)}
+.ref-ic{
+  width:42px;height:42px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--purple),#5b3fd4);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.ref-txt{flex:1}
+.ref-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.ref-s{font-size:11px;color:var(--tx2);margin-top:1px}
+.ref-arr{color:var(--tx3);font-size:16px}
+
+/* BOTTOM NAV */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(10,10,15,.97);backdrop-filter:blur(20px);
+  border-top:1px solid var(--s3);
+  display:flex;padding:6px 0 16px;z-index:100;
+}
+.bnav-i{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;transition:all .2s;padding:4px 0;
+}
+.bnav-ic{font-size:20px;transition:filter .2s}
+.bnav-lb{font-size:10px;color:var(--tx3);font-weight:500;transition:color .2s}
+.bnav-i.on .bnav-lb{color:var(--gold)}
+.bnav-i.on .bnav-ic{filter:drop-shadow(0 0 5px rgba(245,200,66,.6))}
+
+/* PAGE */
+.page{display:none;padding:14px 16px;animation:fadeUp .25s ease}
+.page.on{display:block}
+#pg-home{display:block}
+
+.pg-hdr{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.back-btn{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--s2);border:1px solid var(--s3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;flex-shrink:0;
+}
+.pg-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800}
+
+/* PRICE CARDS */
+.price-card{
+  background:var(--s1);border:1.5px solid var(--s3);
+  border-radius:var(--r);padding:14px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;
+}
+.price-card:active{transform:scale(.98)}
+.price-card.sel{border-color:var(--gold);background:var(--gold3)}
+.price-card.sel-p{border-color:var(--purple);background:var(--purple2)}
+.p-ic{font-size:26px;flex-shrink:0}
+.p-info{flex:1}
+.p-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.p-sub{font-size:11px;color:var(--tx2);margin-top:1px}
+.p-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--gold);white-space:nowrap}
+.p-val.purple{color:#a78bfa}
+
+/* INPUT */
+.inp-wrap{background:var(--s1);border:1.5px solid var(--s3);border-radius:14px;padding:12px 14px;margin-bottom:8px;transition:border-color .2s}
+.inp-wrap:focus-within{border-color:var(--gold)}
+.inp-wrap.purple:focus-within{border-color:var(--purple)}
+.inp-lbl{font-size:10px;color:var(--tx2);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.inp{width:100%;background:transparent;border:none;color:var(--tx);font-size:15px;font-family:'DM Sans',sans-serif;outline:none}
+.inp::placeholder{color:var(--tx3)}
+
+/* RECIPIENT TOGGLE */
+.recip-row{display:flex;gap:7px;margin-bottom:8px}
+.recip-btn{
+  flex:1;padding:10px 8px;border-radius:12px;
+  border:1.5px solid var(--s3);background:transparent;
+  color:var(--tx2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.recip-btn.on{border-color:var(--gold);background:var(--gold3);color:var(--gold)}
+.recip-btn.on.purple{border-color:var(--purple);background:var(--purple2);color:#a78bfa}
+
+/* PROMO */
+.promo-row{display:flex;gap:7px;margin-bottom:8px}
+.promo-inp{
+  flex:1;background:var(--s1);border:1.5px solid var(--s3);
+  border-radius:12px;padding:10px 13px;color:var(--tx);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;outline:none;
+}
+.promo-inp::placeholder{color:var(--tx3);letter-spacing:0;font-weight:400;text-transform:none}
+.promo-btn{
+  background:var(--s3);border:1.5px solid var(--s4);border-radius:12px;
+  padding:10px 14px;color:var(--tx2);font-size:12px;font-weight:700;cursor:pointer;
+}
+.promo-msg{font-size:11px;margin-bottom:8px;padding:7px 11px;border-radius:9px;display:none}
+.promo-msg.ok{display:block;background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.promo-msg.err{display:block;background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+
+/* SUMMARY */
+.summ{background:var(--s1);border:1px solid var(--s3);border-radius:var(--r);padding:12px 14px;margin-bottom:8px}
+.summ-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px}
+.summ-row+.summ-row{border-top:1px solid var(--s3)}
+.summ-row .l{color:var(--tx2);font-weight:500}
+.summ-row .v{font-weight:700}
+.summ-row.disc .v{color:var(--green)}
+.summ-row.tot{border-top:1.5px dashed rgba(245,200,66,.2)!important;padding-top:9px;margin-top:3px}
+.summ-row.tot .l{font-size:14px;font-weight:800;color:var(--tx)}
+.summ-row.tot .v{font-family:'Syne',sans-serif;font-size:17px;font-weight:900;color:var(--gold)}
+
+/* BUY BUTTON */
+.buy-btn{
+  width:100%;padding:14px;border:none;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#000;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  box-shadow:0 6px 24px rgba(245,200,66,.35);
+}
+.buy-btn:active{transform:scale(.98)}
+.buy-btn:disabled{opacity:.45;cursor:not-allowed}
+.buy-btn.purple-btn{
+  background:linear-gradient(135deg,var(--purple),#5b3fd4);
+  color:#fff;box-shadow:0 6px 24px rgba(124,92,252,.35);
+}
+
+/* TOPUP PAGE */
+.topup-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+.topup-opt{
+  background:var(--s1);border:1.5px solid var(--s3);border-radius:12px;
+  padding:11px 6px;text-align:center;cursor:pointer;transition:all .2s;
+}
+.topup-opt:active{transform:scale(.97)}
+.topup-opt.on{border-color:var(--gold);background:var(--gold3)}
+.topup-opt .amt{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.topup-opt .lbl{font-size:10px;color:var(--tx3);margin-top:1px}
+
+/* HISTORY */
+.receipt{
+  background:var(--s1);border:1px solid var(--s3);
+  border-radius:16px;margin-bottom:9px;overflow:hidden;
+}
+.r-top{padding:13px 14px 14px}
+.r-stat{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.r-badge{display:inline-flex;align-items:center;gap:4px;border-radius:20px;padding:3px 9px;font-size:10px;font-weight:700}
+.r-badge.done{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.r-badge.fail{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.r-badge.pend{background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2)}
+.r-id{font-size:10px;color:var(--tx3);font-family:'DM Sans',monospace}
+.r-svc{display:flex;align-items:center;gap:9px}
+.r-svc-ic{font-size:22px}
+.r-svc-nm{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+.r-svc-sub{font-size:11px;color:var(--tx3);margin-top:1px}
+.r-body{padding:14px 14px 13px;border-top:1px dashed var(--s3)}
+.r-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0}
+.r-row .rl{color:var(--tx3);font-weight:500}
+.r-row .rv{color:var(--tx);font-weight:700}
+.r-row.tot{border-top:1px solid var(--s3);padding-top:8px;margin-top:4px}
+.r-row.tot .rl{font-size:13px;font-weight:800;color:var(--tx)}
+.r-row.tot .rv{font-size:14px;font-weight:900;color:var(--gold)}
+.empty{text-align:center;padding:50px 20px;color:var(--tx3)}
+.empty-ic{font-size:44px;margin-bottom:12px;opacity:.35}
+
+/* TOP10 */
+.tabs-row{display:flex;gap:5px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
+.tab-btn{
+  padding:7px 14px;border-radius:20px;border:1.5px solid var(--s3);
+  background:transparent;color:var(--tx2);font-size:12px;font-weight:700;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.tab-btn.on{border-color:var(--gold);background:var(--gold3);color:var(--gold)}
+.top-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--s1);border:1px solid var(--s3);border-radius:14px;
+  padding:12px 14px;margin-bottom:7px;
+}
+.top-rank{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:800;flex-shrink:0;
+}
+.top-rank.r1{background:linear-gradient(135deg,#f5c842,#e6a800);color:#000}
+.top-rank.r2{background:linear-gradient(135deg,#c0c0c0,#a0a0a0);color:#000}
+.top-rank.r3{background:linear-gradient(135deg,#cd7f32,#b86b20);color:#fff}
+.top-rank.rn{background:var(--s3);color:var(--tx2)}
+.top-info{flex:1}
+.top-nm{font-size:14px;font-weight:700}
+.top-sub{font-size:11px;color:var(--tx3);margin-top:1px}
+.top-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--gold);text-align:right}
+.top-val-sub{font-size:10px;color:var(--tx3);text-align:right}
+
+/* PROFILE */
+.profile-card{
+  background:linear-gradient(145deg,#1a1535,#111118);
+  border:1px solid rgba(124,92,252,.2);border-radius:var(--r);
+  padding:20px;text-align:center;margin-bottom:12px;
+}
+.pf-av{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:800;margin:0 auto 10px;
+  font-family:'Syne',sans-serif;color:#000;
+}
+.pf-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:2px}
+.pf-un{font-size:12px;color:var(--tx2)}
+.pf-bal{
+  margin-top:16px;padding:12px;
+  background:rgba(0,0,0,.3);border-radius:12px;
+}
+.pf-bal-lbl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.pf-bal-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:900;color:var(--gold)}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.stat-c{background:var(--s1);border:1px solid var(--s3);border-radius:14px;padding:13px;text-align:center}
+.stat-v{font-family:'Syne',sans-serif;font-size:20px;font-weight:900;color:var(--tx)}
+.stat-l{font-size:10px;color:var(--tx3);margin-top:2px;text-transform:uppercase;letter-spacing:.7px}
+
+.pf-link{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--s1);border:1px solid var(--s3);border-radius:13px;
+  padding:12px 14px;margin-bottom:7px;cursor:pointer;transition:all .2s;
+}
+.pf-link:active{transform:scale(.98)}
+.pf-link-l{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.pf-link-ic{font-size:18px}
+.pf-link-arr{color:var(--tx3)}
+
+/* REFERRAL PAGE */
+.ref-page-card{
+  background:linear-gradient(135deg,#1a1535,#0f0e18);
+  border:1px solid rgba(124,92,252,.2);border-radius:var(--r);
+  padding:18px;margin-bottom:10px;
+}
+.ref-link-box{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,.4);border-radius:11px;padding:10px 12px;
+  margin-top:12px;
+}
+.ref-link-txt{font-size:11px;color:var(--tx2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace}
+.copy-btn{
+  background:var(--purple);border:none;border-radius:8px;
+  padding:5px 11px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;
+}
+.ref-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.ref-st{background:rgba(0,0,0,.3);border-radius:10px;padding:11px;text-align:center}
+.ref-st-v{font-family:'Syne',sans-serif;font-size:18px;font-weight:900;color:var(--purple)}
+.ref-st-l{font-size:10px;color:var(--tx3);margin-top:1px;text-transform:uppercase;letter-spacing:.5px}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(60px);
+  background:var(--s2);border:1px solid var(--s4);border-radius:12px;
+  padding:9px 16px;font-size:12px;font-weight:600;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  z-index:9998;white-space:nowrap;pointer-events:none;
+}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="sp-logo" id="splashLogo">⭐</div>
+  <div class="sp-name">U-<span>Gift</span></div>
+  <div class="sp-sub">Premium & Stars Market</div>
+  <div class="sp-bar"><div class="sp-bar-fill"></div></div>
+</div>
+
+<!-- HOME -->
+<div id="pg-home" style="display:none">
+  <div class="hdr">
+    <div class="hdr-brand">
+      <div class="hdr-logo">⭐</div>
+      <div class="hdr-name">U-<span>Gift</span></div>
+    </div>
+    <div class="hdr-bal" onclick="showPage('pg-topup')">
+      <span>🪙</span><span id="balAmt">0 so'm</span>
+    </div>
+  </div>
+  <div class="greet">
+    <div class="greet-hi">Xush kelibsiz 👋</div>
+    <div class="greet-name" id="userName">—</div>
+  </div>
+  <div class="sect">
+    <div class="sect-lbl">Xizmatlar</div>
+    <div class="svc-grid">
+      <div class="svc-card stars" onclick="showPage('pg-stars')">
+        <span class="svc-ic">🌟</span>
+        <div class="svc-nm">Stars</div>
+        <div class="svc-sub">Tezkor va sifatli</div>
+        <div class="svc-badge gold">Tez</div>
+      </div>
+      <div class="svc-card prem" onclick="showPage('pg-premium')">
+        <span class="svc-ic">⭐</span>
+        <div class="svc-nm">Premium</div>
+        <div class="svc-sub">Ishonchli xizmat</div>
+        <div class="svc-badge purple">Gift</div>
+      </div>
+    </div>
+  </div>
+  <div class="ref-banner" onclick="showPage('pg-referral')">
+    <div class="ref-ic">👥</div>
+    <div class="ref-txt">
+      <div class="ref-t">Do'stlarni taklif qiling</div>
+      <div class="ref-s">Har bir do'st uchun <span id="refBonusHome">5 000</span> so'm!</div>
+    </div>
+    <div class="ref-arr">›</div>
+  </div>
+</div>
+
+<!-- STARS -->
+<div class="page" id="pg-stars">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">🌟 Stars sotib olish</div>
+  </div>
+
+  <div id="starsGrid"></div>
+
+  <div class="recip-row">
+    <button class="recip-btn on" id="st-self" onclick="setStRecip('self')">👤 O'zimga</button>
+    <button class="recip-btn" id="st-other" onclick="setStRecip('other')">👥 Boshqaga</button>
+  </div>
+
+  <div id="st-other-inp" style="display:none">
+    <div class="inp-wrap">
+      <div class="inp-lbl">Username</div>
+      <input class="inp" id="stUser" placeholder="@username">
+    </div>
+  </div>
+
+  <div class="promo-row">
+    <input class="promo-inp" id="stPromo" placeholder="Promo kod (ixtiyoriy)">
+    <button class="promo-btn" onclick="applyPromo('stars')">Qo'llash</button>
+  </div>
+  <div class="promo-msg" id="stPromoMsg"></div>
+
+  <div class="summ">
+    <div class="summ-row"><span class="l">Stars miqdori</span><span class="v" id="sumStCount">—</span></div>
+    <div class="summ-row"><span class="l">Kimga</span><span class="v" id="sumStUser">—</span></div>
+    <div class="summ-row disc" id="sumStDiscRow" style="display:none"><span class="l">🎁 Chegirma</span><span class="v" id="sumStDisc">—</span></div>
+    <div class="summ-row tot"><span class="l">To'lov</span><span class="v" id="sumStPrice">—</span></div>
+  </div>
+
+  <button class="buy-btn" id="stBuyBtn" onclick="buyStars()">⚡ Sotib olish</button>
+</div>
+
+<!-- PREMIUM -->
+<div class="page" id="pg-premium">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">⭐ Premium Gift</div>
+  </div>
+
+  <div id="premGrid"></div>
+
+  <div class="recip-row">
+    <button class="recip-btn on purple" id="pm-self" onclick="setPmRecip('self')">👤 O'zimga</button>
+    <button class="recip-btn" id="pm-other" onclick="setPmRecip('other')">👥 Boshqaga</button>
+  </div>
+
+  <div id="pm-other-inp" style="display:none">
+    <div class="inp-wrap purple">
+      <div class="inp-lbl">Username</div>
+      <input class="inp" id="pmUser" placeholder="@username">
+    </div>
+  </div>
+
+  <div class="promo-row">
+    <input class="promo-inp" id="pmPromo" placeholder="Promo kod (ixtiyoriy)">
+    <button class="promo-btn" onclick="applyPromo('premium')">Qo'llash</button>
+  </div>
+  <div class="promo-msg" id="pmPromoMsg"></div>
+
+  <div class="summ">
+    <div class="summ-row"><span class="l">Muddat</span><span class="v" id="sumPmMon">—</span></div>
+    <div class="summ-row"><span class="l">Kimga</span><span class="v" id="sumPmUser">—</span></div>
+    <div class="summ-row disc" id="sumPmDiscRow" style="display:none"><span class="l">🎁 Chegirma</span><span class="v" id="sumPmDisc">—</span></div>
+    <div class="summ-row tot"><span class="l">To'lov</span><span class="v purple" id="sumPmPrice" style="color:#a78bfa">—</span></div>
+  </div>
+
+  <button class="buy-btn purple-btn" id="pmBuyBtn" onclick="buyPremium()">⚡ Sotib olish</button>
+</div>
+
+<!-- TOPUP -->
+<div class="page" id="pg-topup">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">💰 Hisob to'ldirish</div>
+  </div>
+  <div class="topup-opts" id="topupOpts">
+    <div class="topup-opt on" onclick="selTopup(this,10000)"><div class="amt">10 000</div><div class="lbl">so'm</div></div>
+    <div class="topup-opt" onclick="selTopup(this,25000)"><div class="amt">25 000</div><div class="lbl">so'm</div></div>
+    <div class="topup-opt" onclick="selTopup(this,50000)"><div class="amt">50 000</div><div class="lbl">so'm</div></div>
+    <div class="topup-opt" onclick="selTopup(this,100000)"><div class="amt">100 000</div><div class="lbl">so'm</div></div>
+    <div class="topup-opt" onclick="selTopup(this,200000)"><div class="amt">200 000</div><div class="lbl">so'm</div></div>
+    <div class="topup-opt" onclick="selTopup(this,500000)"><div class="amt">500 000</div><div class="lbl">so'm</div></div>
+  </div>
+  <div class="inp-wrap" style="margin-bottom:10px">
+    <div class="inp-lbl">Yoki o'zingiz kiriting</div>
+    <input class="inp" id="customAmt" type="number" placeholder="Minimum 5 000" oninput="onCustomAmt()">
+  </div>
+  <div class="summ">
+    <div class="summ-row tot"><span class="l">To'lov miqdori</span><span class="v" id="topupTotal">10 000 so'm</span></div>
+  </div>
+  <button class="buy-btn" onclick="doTopup()">💳 To'lov qilish</button>
+</div>
+
+<!-- HISTORY -->
+<div class="page" id="pg-history">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">📋 Buyurtmalar tarixi</div>
+  </div>
+  <div id="histList"></div>
+</div>
+
+<!-- TOP10 -->
+<div class="page" id="pg-top">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">🏆 Top 10</div>
+  </div>
+  <div class="tabs-row">
+    <button class="tab-btn on" onclick="loadTop('daily',this)">Kunlik</button>
+    <button class="tab-btn" onclick="loadTop('weekly',this)">Haftalik</button>
+    <button class="tab-btn" onclick="loadTop('monthly',this)">Oylik</button>
+    <button class="tab-btn" onclick="loadTop('all',this)">Umumiy</button>
+  </div>
+  <div id="topList"></div>
+</div>
+
+<!-- PROFILE -->
+<div class="page" id="pg-profile">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">👤 Profil</div>
+  </div>
+  <div class="profile-card">
+    <div class="pf-av" id="pfAv">U</div>
+    <div class="pf-name" id="pfName">—</div>
+    <div class="pf-un" id="pfUn">—</div>
+    <div class="pf-bal">
+      <div class="pf-bal-lbl">Hisobingiz</div>
+      <div class="pf-bal-val" id="pfBal">0 so'm</div>
+    </div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-c"><div class="stat-v" id="pfOrders">0</div><div class="stat-l">Buyurtmalar</div></div>
+    <div class="stat-c"><div class="stat-v" id="pfRefs">0</div><div class="stat-l">Referrallar</div></div>
+  </div>
+  <div class="pf-link" onclick="showPage('pg-topup')">
+    <div class="pf-link-l"><span class="pf-link-ic">💰</span>Hisob to'ldirish</div>
+    <span class="pf-link-arr">›</span>
+  </div>
+  <div class="pf-link" onclick="showPage('pg-referral')">
+    <div class="pf-link-l"><span class="pf-link-ic">👥</span>Referral tizimi</div>
+    <span class="pf-link-arr">›</span>
+  </div>
+  <div class="pf-link" onclick="showPage('pg-history')">
+    <div class="pf-link-l"><span class="pf-link-ic">📋</span>Buyurtmalar tarixi</div>
+    <span class="pf-link-arr">›</span>
+  </div>
+  <div class="pf-link" id="supportLink" style="display:none" onclick="openSupport()">
+    <div class="pf-link-l"><span class="pf-link-ic">💬</span>Yordam / Support</div>
+    <span class="pf-link-arr">›</span>
+  </div>
+  <div class="pf-link" id="channelLink" style="display:none" onclick="openChannel()">
+    <div class="pf-link-l"><span class="pf-link-ic">📢</span>Kanalimiz</div>
+    <span class="pf-link-arr">›</span>
+  </div>
+</div>
+
+<!-- REFERRAL PAGE -->
+<div class="page" id="pg-referral">
+  <div class="pg-hdr">
+    <div class="back-btn" onclick="goBack()">←</div>
+    <div class="pg-title">👥 Referral</div>
+  </div>
+  <div class="ref-page-card">
+    <div class="sect-lbl" style="margin-bottom:6px">Do'stlarni taklif qiling</div>
+    <div style="font-size:13px;color:var(--tx2);line-height:1.5">
+      Har bir do'stingiz botga kirsa siz <span id="refBonusAmt" style="color:var(--purple);font-weight:700">5 000 so'm</span> bonus olasiz!
+    </div>
+    <div class="ref-link-box">
+      <span class="ref-link-txt" id="refLink">—</span>
+      <button class="copy-btn" onclick="copyRef()">Nusxa</button>
+    </div>
+    <div class="ref-stats">
+      <div class="ref-st"><div class="ref-st-v" id="refCount">0</div><div class="ref-st-l">Taklif</div></div>
+      <div class="ref-st"><div class="ref-st-v" id="refEarned">0</div><div class="ref-st-l">Bonus so'm</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <div class="bnav-i on" onclick="navTo('home',this)"><div class="bnav-ic">🏠</div><div class="bnav-lb">Bosh sahifa</div></div>
+  <div class="bnav-i" onclick="navTo('history',this)"><div class="bnav-ic">📋</div><div class="bnav-lb">Tarix</div></div>
+  <div class="bnav-i" onclick="navTo('top',this)"><div class="bnav-ic">🏆</div><div class="bnav-lb">Top 10</div></div>
+  <div class="bnav-i" onclick="navTo('profile',this)"><div class="bnav-ic">👤</div><div class="bnav-lb">Profil</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ TELEGRAM WEBAPP ═══
+const tg = window.Telegram?.WebApp;
+if(tg){ tg.ready(); tg.expand(); }
+const TG_USER = tg?.initDataUnsafe?.user || {};
+const UID     = TG_USER.id || 0;
+
+// ═══ STATE ═══
+const S = {
+  bal:0, prices:{star:210,pm3:195000,pm6:370000,pm12:680000},
+  minStars:50, refBonus:5000, supportLink:'', channelLink:'',
+  stCount:50, stRecip:'self', stDisc:0, stPromoCode:'',
+  pmMonths:6,  pmRecip:'self', pmDisc:0, pmPromoCode:'',
+  topupAmt:10000, pageHistory:[], curPage:'home'
+};
+
+// ═══ INIT ═══
+window.onload = async () => {
+  await loadSettings();
+  buildStarsGrid();
+  buildPremGrid();
+  updateSummaries();
+
+  // Splash
+  setTimeout(()=>{
+    document.getElementById('splash').classList.add('hide');
+    document.getElementById('pg-home').style.display = 'block';
+  }, 2200);
+
+  // Profile
+  if(TG_USER.first_name){
+    document.getElementById('userName').textContent = TG_USER.first_name;
+    document.getElementById('pfAv').textContent     = TG_USER.first_name[0].toUpperCase();
+    document.getElementById('pfName').textContent   = TG_USER.first_name + (TG_USER.last_name?' '+TG_USER.last_name:'');
+    document.getElementById('pfUn').textContent     = TG_USER.username ? '@'+TG_USER.username : '';
+  }
+};
+
+async function loadSettings(){
+  try{
+    const r = await fetch(`/api/settings?uid=${UID}`);
+    const d = await r.json();
+    S.prices     = d.prices;
+    S.minStars   = d.min_stars;
+    S.refBonus   = d.referral_bonus;
+    S.bal        = d.balance || 0;
+    S.supportLink= d.support_link;
+    S.channelLink= d.channel_link;
+    S.pfOrders   = d.orders_count || 0;
+    S.pfRefs     = d.referrals || 0;
+    S.refEarned  = d.ref_earned || 0;
+
+    document.getElementById('balAmt').textContent    = fmt(S.bal)+' so\'m';
+    document.getElementById('pfBal').textContent     = fmt(S.bal)+' so\'m';
+    document.getElementById('pfOrders').textContent  = d.orders_count || 0;
+    document.getElementById('pfRefs').textContent    = d.referrals || 0;
+    document.getElementById('refBonusHome').textContent = fmt(S.refBonus);
+    document.getElementById('refBonusAmt').textContent  = fmt(S.refBonus)+' so\'m';
+
+    if(S.supportLink){
+      document.getElementById('supportLink').style.display='flex';
+    }
+    if(S.channelLink){
+      document.getElementById('channelLink').style.display='flex';
+    }
+  }catch(e){ console.error(e); }
+}
+
+// ═══ FORMAT ═══
+function fmt(n){ return Math.round(n).toLocaleString('uz-UZ').replace(/,/g,' '); }
+
+// ═══ STARS GRID ═══
+function buildStarsGrid(){
+  const counts = [50,100,250,500,1000];
+  let html = '';
+  counts.forEach((c,i)=>{
+    const price = c * S.prices.star;
+    const sel = c===S.stCount ? 'sel' : '';
+    html += `<div class="price-card ${sel}" onclick="selStar(${c},this)">
+      <div class="p-ic">⭐</div>
+      <div class="p-info">
+        <div class="p-nm">${fmt(c)} Stars${c===500?' 🔥':''}</div>
+        <div class="p-sub">${c===50?'Eng arzon':c===100?'Mashhur':c===250?'Foydali':c===500?'Eng mashhur':'Katta paket'}</div>
+      </div>
+      <div class="p-val">${fmt(price)} so'm</div>
+    </div>`;
+  });
+  document.getElementById('starsGrid').innerHTML = html;
+}
+
+function selStar(n, el){
+  S.stCount = n; S.stDisc = 0; S.stPromoCode = '';
+  document.querySelectorAll('#pg-stars .price-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('stPromo').value = '';
+  document.getElementById('stPromoMsg').className = 'promo-msg';
+  updateSummaries();
+}
+
+// ═══ PREMIUM GRID ═══
+function buildPremGrid(){
+  const items = [
+    {months:3, label:'3 oy', sub:'Boshlang\'ich', key:'pm3'},
+    {months:6, label:'6 oy 🔥', sub:'Eng mashhur', key:'pm6'},
+    {months:12,label:'12 oy', sub:'Eng tejamkor',key:'pm12'},
+  ];
+  let html = '';
+  items.forEach(it=>{
+    const sel = it.months===S.pmMonths ? 'sel-p' : '';
+    html += `<div class="price-card ${sel}" onclick="selPm(${it.months},this)">
+      <div class="p-ic">${it.months===12?'💎':'👑'}</div>
+      <div class="p-info">
+        <div class="p-nm">${it.label}</div>
+        <div class="p-sub">${it.sub}</div>
+      </div>
+      <div class="p-val purple">${fmt(S.prices[it.key])} so'm</div>
+    </div>`;
+  });
+  document.getElementById('premGrid').innerHTML = html;
+}
+
+function selPm(m, el){
+  S.pmMonths = m; S.pmDisc = 0; S.pmPromoCode = '';
+  document.querySelectorAll('#pg-premium .price-card').forEach(c=>c.classList.remove('sel-p'));
+  el.classList.add('sel-p');
+  document.getElementById('pmPromo').value = '';
+  document.getElementById('pmPromoMsg').className = 'promo-msg';
+  updateSummaries();
+}
+
+// ═══ RECIPIENT ═══
+function setStRecip(t){
+  S.stRecip = t;
+  document.getElementById('st-self').classList.toggle('on', t==='self');
+  document.getElementById('st-other').classList.toggle('on', t==='other');
+  document.getElementById('st-other-inp').style.display = t==='other'?'block':'none';
+  updateSummaries();
+}
+
+function setPmRecip(t){
+  S.pmRecip = t;
+  document.getElementById('pm-self').classList.toggle('on', t==='self');
+  document.getElementById('pm-self').classList.toggle('purple', t==='self');
+  document.getElementById('pm-other').classList.toggle('on', t==='other');
+  document.getElementById('pm-other').classList.toggle('purple', t==='other');
+  document.getElementById('pm-other-inp').style.display = t==='other'?'block':'none';
+  updateSummaries();
+}
+
+// ═══ PROMO ═══
+async function applyPromo(type){
+  const inp   = document.getElementById(type==='stars'?'stPromo':'pmPromo');
+  const msgEl = document.getElementById(type==='stars'?'stPromoMsg':'pmPromoMsg');
+  const code  = inp.value.trim().toUpperCase();
+  if(!code){ showToast('Promo kod kiriting!','err'); return; }
+
+  const product = type==='stars'?'stars':({3:'pm3',6:'pm6',12:'pm12'}[S.pmMonths]);
+  try{
+    const r = await fetch('/api/promo/check',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code, uid:UID, product})
+    });
+    const d = await r.json();
+    if(d.success){
+      if(type==='stars'){ S.stDisc=d.discount; S.stPromoCode=code; }
+      else{ S.pmDisc=d.discount; S.pmPromoCode=code; }
+      msgEl.className='promo-msg ok';
+      msgEl.textContent=`✅ Qo'llandi! -${d.discount}% chegirma`;
+      updateSummaries();
+    }else{
+      if(type==='stars'){ S.stDisc=0; S.stPromoCode=''; }
+      else{ S.pmDisc=0; S.pmPromoCode=''; }
+      msgEl.className='promo-msg err';
+      msgEl.textContent='❌ '+d.error;
+      updateSummaries();
+    }
+  }catch{
+    msgEl.className='promo-msg err';
+    msgEl.textContent='❌ Xato yuz berdi';
+  }
+}
+
+// ═══ SUMMARIES ═══
+function updateSummaries(){
+  // Stars
+  const stBase  = S.stCount * S.prices.star;
+  const stDisc  = S.stDisc>0 ? Math.round(stBase*S.stDisc/100) : 0;
+  const stFinal = stBase - stDisc;
+  const stUser  = S.stRecip==='self' ? (TG_USER.first_name||'O\'zim') : (document.getElementById('stUser')?.value?.replace('@','')||'—');
+  document.getElementById('sumStCount').textContent = fmt(S.stCount)+' Stars';
+  document.getElementById('sumStUser').textContent  = stUser;
+  document.getElementById('sumStPrice').textContent = fmt(stFinal)+' so\'m';
+  if(stDisc>0){
+    document.getElementById('sumStDiscRow').style.display='flex';
+    document.getElementById('sumStDisc').textContent='-'+fmt(stDisc)+' so\'m';
+  }else{
+    document.getElementById('sumStDiscRow').style.display='none';
+  }
+
+  // Premium
+  const pmKey   = {3:'pm3',6:'pm6',12:'pm12'}[S.pmMonths];
+  const pmBase  = S.prices[pmKey] || 0;
+  const pmDisc  = S.pmDisc>0 ? Math.round(pmBase*S.pmDisc/100) : 0;
+  const pmFinal = pmBase - pmDisc;
+  const pmUser  = S.pmRecip==='self' ? (TG_USER.first_name||'O\'zim') : (document.getElementById('pmUser')?.value?.replace('@','')||'—');
+  document.getElementById('sumPmMon').textContent  = S.pmMonths+' oy Premium';
+  document.getElementById('sumPmUser').textContent = pmUser;
+  document.getElementById('sumPmPrice').textContent= fmt(pmFinal)+' so\'m';
+  if(pmDisc>0){
+    document.getElementById('sumPmDiscRow').style.display='flex';
+    document.getElementById('sumPmDisc').textContent='-'+fmt(pmDisc)+' so\'m';
+  }else{
+    document.getElementById('sumPmDiscRow').style.display='none';
+  }
+}
+
+// ═══ BUY ═══
+function buyStars(){
+  const uname = S.stRecip==='self' ? (TG_USER.username||'') : document.getElementById('stUser').value.trim().replace('@','');
+  if(!uname){ showToast('Username kiriting!','err'); return; }
+
+  const base  = S.stCount * S.prices.star;
+  const disc  = S.stDisc>0 ? Math.round(base*S.stDisc/100) : 0;
+  const price = base - disc;
+
+  if(S.bal < price){
+    showToast('Balans yetarli emas!','err');
+    setTimeout(()=>showPage('pg-topup'),1000);
+    return;
+  }
+
+  if(tg){
+    tg.sendData(JSON.stringify({
+      action:'buy_stars', stars:S.stCount, username:uname,
+      price, promo:S.stPromoCode
+    }));
+  } else {
+    showToast('Telegram orqali oching!','err');
+  }
+}
+
+function buyPremium(){
+  const uname = S.pmRecip==='self' ? (TG_USER.username||'') : document.getElementById('pmUser').value.trim().replace('@','');
+  if(!uname){ showToast('Username kiriting!','err'); return; }
+
+  const pmKey = {3:'pm3',6:'pm6',12:'pm12'}[S.pmMonths];
+  const base  = S.prices[pmKey] || 0;
+  const disc  = S.pmDisc>0 ? Math.round(base*S.pmDisc/100) : 0;
+  const price = base - disc;
+
+  if(S.bal < price){
+    showToast('Balans yetarli emas!','err');
+    setTimeout(()=>showPage('pg-topup'),1000);
+    return;
+  }
+
+  if(tg){
+    tg.sendData(JSON.stringify({
+      action:'buy_premium', months:S.pmMonths, username:uname,
+      price, promo:S.pmPromoCode
+    }));
+  } else {
+    showToast('Telegram orqali oching!','err');
+  }
+}
+
+// ═══ TOPUP ═══
+function selTopup(el, amt){
+  S.topupAmt = amt;
+  document.querySelectorAll('.topup-opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('customAmt').value='';
+  document.getElementById('topupTotal').textContent = fmt(amt)+' so\'m';
+}
+
+function onCustomAmt(){
+  const v = parseInt(document.getElementById('customAmt').value)||0;
+  S.topupAmt = v;
+  document.querySelectorAll('.topup-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('topupTotal').textContent = v>0 ? fmt(v)+' so\'m' : '—';
+}
+
+async function doTopup(){
+  if(S.topupAmt < 5000){ showToast('Minimum 5 000 so\'m!','err'); return; }
+  const btn = document.querySelector('#pg-topup .buy-btn');
+  btn.disabled=true; btn.textContent='⏳ Yuklanmoqda...';
+  try{
+    const r = await fetch('/api/topup/create',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({uid:UID,amount:S.topupAmt})
+    });
+    const d = await r.json();
+    if(d.success){
+      if(tg){ tg.openLink(d.payment_url); }
+      else{ window.open(d.payment_url,'_blank'); }
+      showToast('To\'lov sahifasi ochildi ✅','ok');
+    }else{
+      showToast('❌ '+d.error,'err');
+    }
+  }catch{
+    showToast('❌ Xato yuz berdi','err');
+  }
+  btn.disabled=false; btn.textContent='💳 To\'lov qilish';
+}
+
+// ═══ HISTORY ═══
+async function loadHistory(){
+  try{
+    const r = await fetch(`/api/history?uid=${UID}`);
+    const d = await r.json();
+    const el = document.getElementById('histList');
+    if(!d.orders.length){
+      el.innerHTML=`<div class="empty"><div class="empty-ic">📭</div>Hali buyurtmalar yo'q</div>`;
+      return;
+    }
+    const st = {completed:'✅ Bajarildi',failed:'❌ Xato',processing:'⏳ Kutilmoqda'};
+    const sc = {completed:'done',failed:'fail',processing:'pend'};
+    el.innerHTML = d.orders.map(o=>{
+      const svc = o.service==='stars'?`🌟 ${fmt(o.stars||0)} Stars`:`⭐ Premium ${o.months||3} oy`;
+      const nm  = o.service==='stars'?'Stars':'Premium';
+      const ic  = o.service==='stars'?'🌟':'⭐';
+      return `<div class="receipt">
+        <div class="r-top">
+          <div class="r-stat">
+            <span class="r-badge ${sc[o.status]||'pend'}">${st[o.status]||'⏳'}</span>
+            <span class="r-id">#${o.id}</span>
+          </div>
+          <div class="r-svc">
+            <span class="r-svc-ic">${ic}</span>
+            <div><div class="r-svc-nm">${nm}</div><div class="r-svc-sub">${svc}</div></div>
+          </div>
+        </div>
+        <div class="r-body">
+          <div class="r-row"><span class="rl">Kimga</span><span class="rv">@${o.username||'?'}</span></div>
+          <div class="r-row"><span class="rl">Sana</span><span class="rv">${o.created_at?.slice(0,16).replace('T',' ')||'—'}</span></div>
+          <div class="r-row tot"><span class="rl">To'langan</span><span class="rv">${fmt(o.price)} so'm</span></div>
+        </div>
+      </div>`;
+    }).join('');
+  }catch{ document.getElementById('histList').innerHTML='<div class="empty"><div class="empty-ic">❌</div>Xato yuz berdi</div>'; }
+}
+
+// ═══ TOP10 ═══
+async function loadTop(period, el){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  if(el) el.classList.add('on');
+  try{
+    const r = await fetch(`/api/top10?period=${period}`);
+    const d = await r.json();
+    const topEl = document.getElementById('topList');
+    if(!d.top.length){
+      topEl.innerHTML='<div class="empty"><div class="empty-ic">🏆</div>Hali ma\'lumot yo\'q</div>'; return;
+    }
+    const medals = ['r1','r2','r3'];
+    topEl.innerHTML = d.top.map((u,i)=>`
+      <div class="top-item">
+        <div class="top-rank ${medals[i]||'rn'}">${i<3?['🥇','🥈','🥉'][i]:i+1}</div>
+        <div class="top-info">
+          <div class="top-nm">${u.name||'Foydalanuvchi'}</div>
+          <div class="top-sub">${u.orders} ta buyurtma</div>
+        </div>
+        <div>
+          <div class="top-val">${fmt(u.stars)} ⭐</div>
+          <div class="top-val-sub">umumiy stars</div>
+        </div>
+      </div>`).join('');
+  }catch{}
+}
+
+// ═══ REFERRAL ═══
+async function loadReferral(){
+  try{
+    const r = await fetch(`/api/referral?uid=${UID}`);
+    const d = await r.json();
+    document.getElementById('refLink').textContent     = d.link||'—';
+    document.getElementById('refCount').textContent    = d.referrals||0;
+    document.getElementById('refEarned').textContent   = fmt(d.ref_earned||0);
+    document.getElementById('refBonusAmt').textContent = fmt(d.bonus||5000)+' so\'m';
+  }catch{}
+}
+
+function copyRef(){
+  const link = document.getElementById('refLink').textContent;
+  navigator.clipboard.writeText(link).then(()=>showToast('✅ Nusxalandi!','ok')).catch(()=>showToast(link,''));
+}
+
+function openSupport(){ if(S.supportLink && tg) tg.openLink(S.supportLink); }
+function openChannel(){ if(S.channelLink && tg) tg.openLink(S.channelLink); }
+
+// ═══ NAVIGATION ═══
+function showPage(id){
+  const prev = S.curPage;
+  document.querySelectorAll('[id^="pg-"]').forEach(p=>{p.style.display='none';p.classList.remove('on')});
+  const el = document.getElementById(id);
+  if(el){ el.style.display='block'; el.classList.add('on'); }
+  S.pageHistory.push(prev);
+  S.curPage = id.replace('pg-','');
+
+  // Sahifaga kirish triggerlar
+  if(id==='pg-history') loadHistory();
+  if(id==='pg-top') loadTop('daily');
+  if(id==='pg-referral') loadReferral();
+  if(id==='pg-stars'||id==='pg-premium') updateSummaries();
+}
+
+function goBack(){
+  const prev = S.pageHistory.pop();
+  if(prev){
+    document.querySelectorAll('[id^="pg-"]').forEach(p=>{p.style.display='none';p.classList.remove('on')});
+    const el = document.getElementById('pg-'+prev);
+    if(el){ el.style.display='block'; el.classList.add('on'); }
+    S.curPage = prev;
+  } else {
+    navToHome();
+  }
+}
+
+function navTo(page, el){
+  document.querySelectorAll('.bnav-i').forEach(i=>i.classList.remove('on'));
+  el.classList.add('on');
+  S.pageHistory = [];
+  showPage('pg-'+page);
+}
+
+function navToHome(){
+  document.querySelectorAll('.bnav-i').forEach((i,n)=>{ if(n===0) i.classList.add('on'); else i.classList.remove('on'); });
+  document.querySelectorAll('[id^="pg-"]').forEach(p=>{p.style.display='none';p.classList.remove('on')});
+  document.getElementById('pg-home').style.display='block';
+  S.curPage='home'; S.pageHistory=[];
+}
+
+// ═══ TOAST ═══
+function showToast(msg, type=''){
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+type+' on';
+  setTimeout(()=>t.classList.remove('on'),3000);
+}
+</script>
+</body>
+</html>
